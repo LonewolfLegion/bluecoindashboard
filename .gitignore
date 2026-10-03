@@ -1,0 +1,10 @@
+# Never commit real Bluecoins backups (personal financial data)
+*.fydb
+*.fydb-journal
+!sample/sample.fydb
+
+# OS / editor
+.DS_Store
+Thumbs.db
+.vscode/
+*.log
