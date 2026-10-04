@@ -1,6 +1,8 @@
 # bluecoindashboard
 A Dashboard for the Bluecoin Finance App
 
+**Live:** https://lonewolflegion.github.io/bluecoindashboard/
+
 A private, browser-only dashboard for [Bluecoins](https://www.bluecoinsapp.com/) backups. Drop in your `.fydb` backup file and see:
 
 - **Spending:** income vs expenses by month, spending by category (click a category to drill into its sub-categories), top payees, savings rate.
@@ -52,6 +54,8 @@ These come from `docs/data-model.md`:
 ## Deploying to GitHub Pages
 
 `.github/workflows/deploy.yml` publishes the repo root on every push to `main`. One-time setup: **Settings → Pages → Source: GitHub Actions**. The hosted page still reads files locally in each visitor's browser.
+
+The workflow also publishes `sitemap.xml`, plus any `google*.html` file in the repo root (the Google Search Console verification file), so the site can be submitted to Google.
 
 ## Tests
 

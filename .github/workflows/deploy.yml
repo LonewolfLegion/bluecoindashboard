@@ -26,6 +26,8 @@ jobs:
         run: |
           mkdir _site
           cp -r index.html css js vendor sample _site/
+          cp sitemap.xml _site/
+          cp google*.html _site/ 2>/dev/null || true   # Search Console verification file, if added
           rm -f _site/sample/sample.fydb
       - uses: actions/configure-pages@v5
       - uses: actions/upload-pages-artifact@v3
