@@ -6,9 +6,10 @@ A private, browser-only dashboard for [Bluecoins](https://www.bluecoinsapp.com/)
 - **Spending:** income vs expenses by month, spending by category (click a category to drill into its sub-categories), top payees, savings rate.
 - **Category trend:** pick any category or sub-category and see its net spending (expenses minus refunds) by month, quarter or year, with the average, the highest period, a sub-category split and the matching transactions.
 - **Net worth:** assets, liabilities and net worth over the selected period, balances for every account at the end of it, how much net worth changed, and a data-quality check for things like transfers missing their other half.
+- **Month-end & Forecast:** every account's balance on the last day of each month, plus a forecast for the next 6, 12 or 24 months. Pick the method: a straight-line **trend** fitted on the last 6–36 month ends (with an 80% range), **scheduled** (today's balance plus your Bluecoins reminders), or **trend + one-offs** (the trend plus reminders that happen only once). You can leave flagged accounts out of the totals, and download the table as CSV.
 - **Transactions:** search, filter (type, category, label, amount), sort, and download as CSV.
 
-Every tab shares the same period filter (this month, last month, last 3 or 12 months, year to date, last year, all time or custom dates) and account filter.
+Every tab except Month-end & Forecast shares the same period filter (this month, last month, last 3 or 12 months, year to date, last year, all time or custom dates) and account filter.
 
 Your data never leaves your computer. The backup is read in the browser with SQLite compiled to WebAssembly, and nothing is uploaded. The last file you opened is cached in the browser's IndexedDB so a refresh doesn't need a re-upload. **Clear data** in the Backup menu removes it.
 
@@ -31,6 +32,7 @@ No build step and no npm install. It's plain HTML, CSS and JavaScript with two v
 | `index.html` | Entry point; loads everything with classic `<script>` tags, so it also works from `file://` |
 | `js/db.js` | Opens the backup with sql.js, maps the Bluecoins schema, builds a decoded `tx` view, caches the file in IndexedDB |
 | `js/queries.js` | Every SQL query the dashboard runs |
+| `js/forecast.js` | Month-end balances, trend fit and forecast maths (no DOM, tested with `node tools/test-forecast.js`) |
 | `js/views/*.js` | One file per tab |
 | `js/app.js` | App shell: upload screen, tabs, shared date and account filters, theme |
 | `css/styles.css` | Light and dark theme tokens and layout |
@@ -50,6 +52,12 @@ These come from `docs/data-model.md`:
 ## Deploying to GitHub Pages
 
 `.github/workflows/deploy.yml` publishes the repo root on every push to `main`. One-time setup: **Settings → Pages → Source: GitHub Actions**. The hosted page still reads files locally in each visitor's browser.
+
+## Tests
+
+```bash
+node tools/test-forecast.js
+```
 
 ## Regenerating the sample data
 
