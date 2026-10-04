@@ -3,14 +3,48 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Bluecoins Dashboard</title>
-  <meta name="description" content="A private dashboard for your Bluecoins finance backup. Everything runs in your browser.">
+  <title>Bluecoins Dashboard – charts and reports for your Bluecoins backup</title>
+  <meta name="description" content="Free, private dashboard for the Bluecoins finance app. Open your .fydb backup to see spending by category, net worth, month-end balances, forecasts and transactions. Runs entirely in your browser; your data is never uploaded.">
+  <link rel="canonical" href="https://lonewolflegion.github.io/bluecoindashboard/">
+  <meta name="robots" content="index, follow">
+
+  <!-- Link previews -->
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Bluecoins Dashboard">
+  <meta property="og:title" content="Bluecoins Dashboard – charts and reports for your Bluecoins backup">
+  <meta property="og:description" content="Spending, net worth, forecasts and transactions from your Bluecoins backup. Runs in your browser; nothing is uploaded.">
+  <meta property="og:url" content="https://lonewolflegion.github.io/bluecoindashboard/">
+  <meta name="twitter:card" content="summary">
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "Bluecoins Dashboard",
+    "url": "https://lonewolflegion.github.io/bluecoindashboard/",
+    "description": "A private, browser-only dashboard for Bluecoins finance app backups (.fydb): spending by category, category trends, net worth, month-end balances, forecasts and searchable transactions.",
+    "applicationCategory": "FinanceApplication",
+    "operatingSystem": "Any (web browser)",
+    "isAccessibleForFree": true,
+    "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
+    "codeRepository": "https://github.com/LonewolfLegion/bluecoindashboard"
+  }
+  </script>
   <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%232a78d6'/%3E%3Ctext x='16' y='23' font-size='20' text-anchor='middle' fill='white' font-family='sans-serif' font-weight='700'%3E%E2%82%B9%3C/text%3E%3C/svg%3E">
   <link rel="stylesheet" href="css/styles.css">
 </head>
 <body>
-  <div id="app"></div>
-  <noscript>This dashboard needs JavaScript to read your backup file.</noscript>
+  <div id="app">
+    <!-- Shown until the app starts (and to crawlers); app.js replaces it. -->
+    <div class="center-screen">
+      <div class="upload-card">
+        <h1>Bluecoins Dashboard</h1>
+        <p class="lede">A free, private dashboard for backups from the Bluecoins finance app. Open your <code>.fydb</code> backup to see spending by category, category trends, net worth, month-end balances with a forecast, and every transaction, searchable and exportable to CSV.</p>
+        <p class="privacy">Your file is read inside your browser with SQLite compiled to WebAssembly and is never uploaded anywhere.</p>
+        <noscript><p>This dashboard needs JavaScript to read your backup file.</p></noscript>
+      </div>
+    </div>
+  </div>
 
   <!-- Libraries (vendored, no network needed) -->
   <script src="vendor/sql-wasm.js"></script>
