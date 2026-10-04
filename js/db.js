@@ -26,6 +26,7 @@
         notes: ["notes", "note"], deleted: ["deletedTransaction"], reminder: ["reminderTransaction"],
         transferGroup: ["transferGroupID"], split: ["newSplitTransactionID"],
         currency: ["transactionCurrency"], rate: ["conversionRateNew"], status: ["status"],
+        reminderGroup: ["reminderGroupID"], reminderFrequency: ["reminderFrequency"], reminderRepeatEvery: ["reminderRepeatEvery"],
       },
     },
     item: { table: ["ITEMTABLE"], cols: { id: ["itemTableID"], name: ["itemName"] } },
@@ -156,7 +157,10 @@
         ${t("currency")} AS currency,
         ${t("rate")} AS rate,
         CASE WHEN ${t("reminder")} IS NULL THEN 0 ELSE 1 END AS isScheduled,
-        ${t("reminder")} AS reminderFlag
+        ${t("reminder")} AS reminderFlag,
+        ${t("reminderGroup")} AS reminderGroupId,
+        ${t("reminderFrequency")} AS reminderFrequency,
+        ${t("reminderRepeatEvery")} AS reminderRepeatEvery
       FROM ${q(R.tx.table)} t
       ${join("item", "i", t("item"))}
       ${join("child", "cc", t("category"))}

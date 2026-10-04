@@ -140,6 +140,42 @@
       return ds.all("SELECT label, count(*) AS n FROM tx_labels WHERE label IS NOT NULL GROUP BY label ORDER BY label");
     },
 
+    // ---- Month-end & Forecast ----
+
+    // Net movement per account per month for actual rows up to `asOf`; the forecast lib turns it into month-end balances.
+    monthlyAccountNet(ds, asOf) {
+      return ds.all(`
+        SELECT accountId, month, sum(amt) AS net
+        FROM tx WHERE isScheduled = 0 AND accountId IS NOT NULL AND day <= ?
+        GROUP BY accountId, month ORDER BY month`, [asOf]);
+    },
+
+    // Scheduled reminder rows dated after `afterDay` up to `toDay`. seriesCount = how many future rows the same
+    // series has (all dates, not just this window); 1 means a one-off. A series is reminderGroupID when the backup
+    // has it, otherwise payee + category + type, and always per account so both legs of a transfer count apart.
+    scheduled(ds, afterDay, toDay) {
+      return ds.all(`
+        WITH r AS (
+          SELECT accountId, month, day, payee, typeId, amt,
+                 COALESCE('g' || reminderGroupId, 'p' || payee || '|' || COALESCE(categoryId, '') || '|' || typeId)
+                   || '#' || COALESCE(accountId, '') AS sk
+          FROM tx WHERE isScheduled = 1 AND accountId IS NOT NULL AND day > ?
+        ),
+        c AS (SELECT sk, count(*) AS n FROM r GROUP BY sk)
+        SELECT r.accountId, r.month, r.day, r.payee, r.typeId, r.amt, c.n AS seriesCount
+        FROM r JOIN c USING (sk) WHERE r.day <= ? ORDER BY r.day`, [afterDay, toDay]);
+    },
+
+    // Accounts that hold one half of a transfer whose other half is missing.
+    oneSidedTransferAccounts(ds) {
+      return ds.all(`
+        SELECT accountId, count(*) AS n, sum(amt) AS total FROM tx
+        WHERE isScheduled = 0 AND typeId = ${TYPE.TRANSFER} AND transferGroupId IS NOT NULL
+          AND transferGroupId IN (SELECT transferGroupId FROM tx WHERE isScheduled = 0 AND typeId = ${TYPE.TRANSFER}
+                                  GROUP BY transferGroupId HAVING count(*) = 1)
+        GROUP BY accountId`);
+    },
+
     // Problems in the data that change balances or totals.
     dataQuality(ds) {
       const out = {};

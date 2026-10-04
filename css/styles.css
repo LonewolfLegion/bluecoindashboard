@@ -235,3 +235,41 @@ ul.dq b { color: var(--text-primary); }
   .card { padding: 14px; }
   .table-wrap { margin: 0 -14px; padding: 0 14px; }
 }
+
+/* Month-end & Forecast */
+.fc-controls { display: flex; flex-wrap: wrap; gap: 14px 18px; align-items: flex-end; }
+.fc-controls select { min-width: 220px; max-width: 100%; }
+.fc-controls .check.small { padding-bottom: 8px; }
+.fc-exclude .menu-panel { min-width: 300px; }
+.fc-mode-help { margin: -6px 2px 0; }
+.kpi-value small { font-size: 13px; font-weight: 500; color: var(--text-muted); margin-left: 2px; }
+.kpi.warn .kpi-sub { color: var(--warning); }
+.sw.dotted { height: 0; width: 16px; border-top: 2px dotted; border-radius: 0; background: none; }
+.fc-trend-sw { border-top-color: var(--series-1); }
+.fc-oneoff-sw { border-top-color: var(--series-3); }
+.fc-sched-sw { border-top-color: var(--series-4); }
+.fc-band-sw { background: color-mix(in srgb, var(--series-1) 22%, transparent); }
+.fc-today-sw { width: 10px; height: 10px; border-radius: 50%; background: var(--text-primary); }
+table.fc-table { width: max-content; min-width: 100%; }
+table.fc-table th, table.fc-table td { padding: 7px 10px; white-space: nowrap; }
+table.fc-table .sticky { position: sticky; left: 0; z-index: 1; background: var(--surface-1); min-width: 170px; max-width: 240px; overflow: hidden; text-overflow: ellipsis; box-shadow: 1px 0 0 var(--border); }
+table.fc-table thead th.sticky { z-index: 3; }
+table.fc-table tr.group th.sticky { background: var(--surface-2); }
+table.fc-table tr.subtotal th.num { text-transform: none; letter-spacing: 0; font-size: 13px; color: var(--text-primary); }
+table.fc-table th.today, table.fc-table td.today { border-left: 1px dashed var(--text-muted); }
+table.fc-table th.fc, table.fc-table td.fc { background: color-mix(in srgb, var(--series-1) 6%, var(--surface-1)); font-style: italic; }
+table.fc-table tr.group th.fc { background: color-mix(in srgb, var(--series-1) 8%, var(--surface-2)); }
+table.fc-table tr.acc { cursor: pointer; }
+table.fc-table tr.acc:hover td.sticky, table.fc-table tr.selected td.sticky { background: var(--surface-2); }
+table.fc-table tr.selected td.sticky { box-shadow: inset 3px 0 0 var(--accent), 1px 0 0 var(--border); }
+table.fc-table tr.excluded td { color: var(--text-muted); }
+table.fc-table tr.excluded td.neg { color: var(--text-muted); }
+table.fc-table tfoot th { border-top: 2px solid var(--border); border-bottom: 0; font-size: 13px; font-weight: 600; background: var(--surface-1); }
+table.fc-table tfoot th.fc { background: color-mix(in srgb, var(--series-1) 6%, var(--surface-1)); }
+@media (max-width: 640px) {
+  .fc-controls { gap: 12px; }
+  .fc-controls .field, .fc-controls select { width: 100%; }
+  .fc-controls .seg { flex-wrap: wrap; }
+  table.fc-table .sticky { min-width: 130px; max-width: 150px; }
+}
+.table-wrap.fc-table-wrap { margin: 0; padding: 0; }

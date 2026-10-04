@@ -8,6 +8,7 @@
     { id: "spending", label: "Spending", filters: true },
     { id: "category", label: "Category trend", filters: true },
     { id: "networth", label: "Net worth", filters: true },
+    { id: "forecast", label: "Month-end & Forecast", filters: false },
     { id: "transactions", label: "Transactions", filters: true },
   ];
 
